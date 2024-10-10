@@ -12,3 +12,83 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+model Guild {
+  id        Int   @id @default(autoincrement())
+  guildId   String @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  settings Settings?
+}
+
+model Settings {
+  id          Int   @id @default(autoincrement())
+  guildId     String @unique
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  prefix      String
+  guild       Guild    @relation(fields: [guildId], references: [guildId])
+  ticketPanel TicketPanel[]
+}
+
+model TicketPanel {
+  id        String   @id @default(cuid())
+  settingsId Int
+  name     String
+  channelId String
+  categoryId String
+  closedCategoryId String
+  messageId String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  setting Settings @relation(fields: [settingsId], references: [id])
+
+  Ticket Ticket[]
+}
+
+model Ticket {
+  id        String   @id @default(cuid())
+  panelId   String 
+  ticketChannel String @unique
+  status    TicketStatus @default(OPEN)
+  createdBy String
+  claimBy   String?
+  closeReason String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  panel     TicketPanel @relation(fields: [panelId], references: [id])
+}
+
+model Warns {
+  id        Int   @id @default(autoincrement())
+  userId    String
+  guildId   String
+  reason    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Bans {
+  id        Int   @id @default(autoincrement())
+  userId    String
+  guildId   String
+  reason    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Mutes {
+  id        Int   @id @default(autoincrement())
+  userId    String
+  guildId   String
+  reason    String
+  duration  BigInt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum TicketStatus {
+  OPEN
+  CLOSED
+}

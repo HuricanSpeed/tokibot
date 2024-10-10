@@ -2,8 +2,9 @@ import express, { Application } from "express";
 import process from "process";
 import cors from "cors";
 import session from "express-session";
+import discordClient from "./services/discord.service";
 
-import { Client, GatewayIntentBits } from "discord.js";
+import prisma from "./services/prisma.service";
 
 const App: Application = express();
 
@@ -29,17 +30,6 @@ App.use(cors({
     credentials: true
 }));
 
-const discordClient = new Client({
-    intents: [
-        GatewayIntentBits.Guilds,
-        GatewayIntentBits.GuildMessages,
-        GatewayIntentBits.MessageContent // Required if your bot needs to read message content
-    ]
-});
-
-discordClient.once("ready", () => {
-    console.log(`Logged in as ${discordClient.user?.tag}`);
-});
 
 discordClient.login(process.env.DISCORD_TOKEN as string);
 
