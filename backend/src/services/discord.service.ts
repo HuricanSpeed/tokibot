@@ -1,4 +1,4 @@
-import { Client, GatewayIntentBits, REST, Routes } from "discord.js";
+import { Client, GatewayIntentBits, Guild, GuildMember, PartialGuildMember, REST, Routes, VoiceState } from "discord.js";
 import { DisTube, DisTubeEvents } from "distube";
 import { SpotifyPlugin } from "@distube/spotify";
 import { YtDlpPlugin } from '@distube/yt-dlp'; // Optional: For better YouTube support
@@ -12,6 +12,8 @@ import handleButtonClick from "./button.service";
 import handleModal from "./modal.service";
 import mute from "../models/commands/mute.command";
 import playSong from "../models/commands/play.command";
+import handleMemberAdd from "./memberAdd.service";
+import guildMemberUpdateHandler from "./guildMemberUpdate.service";
 
 
 const discordClient = new Client({
@@ -20,6 +22,7 @@ const discordClient = new Client({
         GatewayIntentBits.GuildMessages,
         GatewayIntentBits.GuildMembers,
         GatewayIntentBits.GuildVoiceStates,
+        GatewayIntentBits.GuildMessageReactions,
         GatewayIntentBits.MessageContent // Required if your bot needs to read message content
     ]
 });
@@ -86,7 +89,9 @@ discordClient.on("interactionCreate", async interaction => {
         } else if (commandName === "mute") {
             await mute(interaction);
         } else if (commandName === "play") {
-            await playSong(interaction);
+            await test(interaction);
+        } else if (commandName === "test") {
+            await test(interaction);
         } else {
             await interaction.reply({ content: "Unknown command", ephemeral: true });
         }
@@ -114,6 +119,26 @@ discordClient.on('interactionCreate', async interaction => {
     handleModal(interaction);
 });
 
+discordClient.on("guildMemberUpdate", async (oldMember: GuildMember | PartialGuildMember, newMember: GuildMember) => {
+    if(!oldMember || !newMember) return;
+
+    guildMemberUpdateHandler(oldMember, newMember);
+})
+
+discordClient.on("voiceStateUpdate", async (oldState: VoiceState, newState: VoiceState) => {
+    if(!oldState || !newState) return;
+
+    if(!oldState.channel && newState.channel) {
+        console.log("User joined a voice channel");
+    }
+})
+
+
+discordClient.on("guildMemberAdd", async member => {
+    if(!member) return;
+
+    handleMemberAdd(member);
+})
 
 export default discordClient;
 

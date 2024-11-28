@@ -67,6 +67,9 @@ const commands = [
                 .setRequired(true)
         ),
     new SlashCommandBuilder()
+        .setName("test")
+        .setDescription("Test command"),
+    new SlashCommandBuilder()
         .setName("skip")
         .setDescription("Skips the current song"),
     new SlashCommandBuilder()

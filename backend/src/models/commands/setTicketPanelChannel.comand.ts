@@ -69,7 +69,6 @@ const setTicketPanelChannel = async (interaction: CommandInteraction) => {
             guildId: interaction.guildId!,
             settings: {
                 create: {
-                    prefix: '!',
                     ticketPanel: {
                         create: {
                             id: panelId,
