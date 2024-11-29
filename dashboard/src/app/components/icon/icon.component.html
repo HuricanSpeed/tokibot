@@ -1,0 +1,6 @@
+<ng-container *ngIf="svgIcon; else notFound">
+  <span [innerHTML]="svgIcon"></span>
+</ng-container>
+<ng-template #notFound>
+  <span>Icon not found</span>
+</ng-template>
