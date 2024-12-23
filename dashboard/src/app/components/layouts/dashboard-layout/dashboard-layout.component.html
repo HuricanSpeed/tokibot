@@ -1,0 +1,26 @@
+<main class="w-screen h-screen bg-black grid gridCols01Fr">
+  <section class="w-full h-full bg-[#1e2124] p-3 flex flex-col items-center overflow-y-auto gap-4 noScroll">
+    <div class="w-full max-h-16 h-fit p-2 border-b-2 border-gray-700">
+      <img src="https://cdn.discordapp.com/avatars/{{accountData.id}}/{{accountData.avatar}}.webp" class="rounded-full hover:scale-110 transition-all cursor-pointer" [routerLink]="['/dashboard/user']" routerLinkActive="active" alt="User profile">
+    </div>
+    <div class="w-full h-fit flex flex-col gap-2">
+      <ng-container *ngFor="let item of adminGuilds">
+        <ng-container *ngIf="item.icon; else noIcon">
+          <div class="w-full max-h-16 h-fit p-1 hover:scale-110 transition-all cursor-pointer" [routerLink]="['/dashboard/', item.id]" routerLinkActive="active">
+            <img src="https://cdn.discordapp.com/icons/{{item.id}}/{{item.icon}}.webp" class="rounded-full" alt="Guild Profile">
+          </div>
+        </ng-container>
+        <ng-template #noIcon>
+          <div class="w-full max-h-16 h-fit p-1 hover:scale-110 transition-all cursor-pointer" [routerLink]="['/dashboard/', item.id]" routerLinkActive="active">
+            <div class="rounded-full h-14 w-full flex justify-center items-center text-lg bg-[#0e1011] text-white font-medium">
+              {{transformName(item.name)}}
+            </div>
+          </div>
+        </ng-template>
+      </ng-container>
+    </div>
+  </section>
+  <main class="w-full h-full">
+    <router-outlet></router-outlet>
+  </main>
+</main>

@@ -1,0 +1,15 @@
+:host{
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip{
+  position: absolute;
+  background-color: white;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  z-index: 1000;
+}

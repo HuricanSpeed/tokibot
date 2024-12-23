@@ -1,10 +1,23 @@
 <header class="w-full h-full p-4 pl-10 pr-10 grid grid-cols-3">
   <div class="text-5xl cursor-pointer"><app-icon type="mainLogo"></app-icon></div>
   <div class="flex flex-row text-2xl justify-center items-center text-center gap-10 text-[#566363] uppercase">
-    <p class="hover:text-[#738383] cursor-pointer">Documentation</p>
-    <p class="hover:text-[#738383] cursor-pointer">Support</p>
+    <a href="">
+      <p class="hover:text-[#738383] cursor-pointer">Documentation</p>
+    </a>
+    <a href="https://discord.gg/nJmMJrtAyZ">
+      <p class="hover:text-[#738383] cursor-pointer">Support</p>
+    </a>
   </div>
   <div class="w-full h-full flex justify-end items-center">
-    <div class="w-fit h-fit p-2 px-5 bg-[#2240AC] text-white rounded-md cursor-pointer hover:bg-[#314db3] transition-colors">LOGIN</div>
+    <ng-container *ngIf="isLogged;else notLoggedIn">
+      <div class="w-16 rounded-md cursor-pointer" [routerLink]="['/dashboard/user']" >
+        <img class="h-full rounded-md" src="https://cdn.discordapp.com/avatars/{{accountData.id}}/{{accountData.avatar}}.webp" alt="Profile Pixture">
+      </div>
+    </ng-container>
+    <ng-template #notLoggedIn>
+      <a href="https://discord.com/oauth2/authorize?client_id=1285553282290417715&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A4200%2Fapi%2Flogin&scope=guilds+guilds.join+email+identify">
+        <div class="w-fit h-fit p-2 px-5 bg-[#2240AC] text-white rounded-md cursor-pointer hover:bg-[#314db3] transition-colors">LOGIN</div>
+      </a>
+    </ng-template>
   </div>
 </header>
