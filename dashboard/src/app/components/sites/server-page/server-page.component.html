@@ -1,10 +1,36 @@
-<div class="w-full h-full">
-  <ng-container *ngIf="!setuped">
+<div class="w-full h-full" [ngClass]="{'p-3 grid gridTemplate gap-3': authData.setup}">
+  <ng-container *ngIf="!authData.setup; else setupedServer">
     <div class="w-full h-full flex flex-col justify-center items-center">
-      <div class="bg-gray-500 p-2 px-3 rounded-md text-white font-medium flex flex-col gap-4">Server is not wasn't set up
-
+      <div class="bg-gray-900 p-4 px-6 rounded-md text-white font-medium flex flex-col gap-4">Server is not set up
         <button class="bg-blue-500 p-2 px-3 rounded-md text-white font-medium ml-2" (click)="setup()">Setup</button>
       </div>
     </div>
   </ng-container>
+
+  <ng-template #setupedServer>
+    <div class="w-full h-full bg-[#1e2124] rounded-md flex flex-col p-2 gap-3">
+      <div class="w-full h-fit flex flex-row justify-center items-center">
+        <div class="w-2/4 flex flex-col justify-center items-center gap-2">
+          <div>
+            <img class="w-full rounded-full" src="https://cdn.discordapp.com/icons/{{authData.id}}/{{authData.icon}}.webp" alt="avatar">
+          </div>
+          <h1 class="text-white text-2xl">{{authData.name}}</h1>
+        </div>
+      </div>
+      <div class="w-full h-1/4 flex flex-col p-4 gap-4">
+        <div class="w-full h-fit flex flex-row justify-between items-center">
+          <p class="uppercase text-lg font-medium text-gray-500 cursor-pointer" [routerLink]="['overview']" routerLinkActive="active">Overview</p>
+        </div>
+        <div class="w-full h-fit flex flex-row justify-between items-center">
+          <p class="uppercase text-lg font-medium text-gray-500 cursor-pointer" [routerLink]="['tickets']" routerLinkActive="active">Tickets</p>
+        </div>
+        <div class="w-full h-fit flex flex-row justify-between items-center">
+          <p class="uppercase text-lg font-medium text-gray-500 cursor-pointer" [routerLink]="['bans']" routerLinkActive="active">Bans</p>
+        </div>
+      </div>
+    </div>
+    <div class="w-full h-full bg-[#1e2124] rounded-md p-2">
+      <router-outlet></router-outlet>
+    </div>
+  </ng-template>
 </div>

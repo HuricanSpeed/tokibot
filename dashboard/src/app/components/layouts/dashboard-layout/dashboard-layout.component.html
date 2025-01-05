@@ -7,7 +7,7 @@
       <ng-container *ngFor="let item of adminGuilds">
         <ng-container *ngIf="item.icon; else noIcon">
           <div class="w-full max-h-16 h-fit p-1 hover:scale-110 transition-all cursor-pointer" [routerLink]="['/dashboard/', item.id]" routerLinkActive="active">
-            <img src="https://cdn.discordapp.com/icons/{{item.id}}/{{item.icon}}.webp" class="rounded-full" alt="Guild Profile">
+            <img src="https://cdn.discordapp.com/icons/{{item.id}}/{{item.icon}}.webp" class="rounded-full" [ngClass]="{'grayscale': !item.setup}" alt="Guild Profile">
           </div>
         </ng-container>
         <ng-template #noIcon>

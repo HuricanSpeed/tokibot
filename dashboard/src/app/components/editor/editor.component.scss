@@ -1,0 +1,73 @@
+:root {
+  --discord-gray: #383a3f;
+  --discord-light-gray: #36393f;
+  --discord-blue: #7289da;
+  --discord-green: #43b581;
+  --discord-red: #f04747;
+  --discord-white: #ffffff;
+  --discord-black: #23272a;
+}
+
+.editor-container {
+  max-width: 800px;
+  margin: 0 auto;
+  border-radius: 8px;
+  padding: 20px;
+  background-color: #292d31;
+}
+
+.dark-mode {
+  background-color: var(--discord-gray);
+}
+
+.light-mode {
+  background-color: var(--discord-white);
+}
+
+.validation-errors {
+  color: var(--discord-red);
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.embed-card {
+  margin-bottom: 20px;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: var(--discord-light-gray);
+}
+
+.embed-title,
+.embed-description,
+.field-input,
+.footer-input,
+.image-input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  border: 1px solid var(--discord-light-gray);
+  background-color: #17191b;
+  color: var(--discord-white);
+}
+
+.add-field-button,
+.remove-field-button,
+.move-field-button,
+.send-button {
+  cursor: pointer;
+  padding: 8px 10px;
+  border-radius: 5px;
+  border: none;
+  margin-right: 5px;
+}
+
+.embed-preview {
+  margin-top: 15px;
+}
+
+.preview-box {
+  border: 2px solid;
+  padding: 10px;
+  border-radius: 5px;
+}

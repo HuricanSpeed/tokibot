@@ -24,4 +24,10 @@ export class HttpService {
     const options = { withCredentials: true, headers };
     return await this.http.post(`/api/discord/getGuild`, {guildId: id} ,options);
   }
+
+  async getGuildCategories(id: string) {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    const options = { withCredentials: true, headers };
+    return await this.http.post(`/api/discord/getGuildCategories`, {guildId: id} ,options);
+  }
 }

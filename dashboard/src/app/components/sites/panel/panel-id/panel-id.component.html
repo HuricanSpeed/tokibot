@@ -1,0 +1,48 @@
+<ng-container *ngIf="false; else new">
+    <!-- <div class="panel panel-default">
+        <div class="panel-heading">
+        <h3 class="panel-title">{{panel.name}}</h3>
+        </div>
+        <div class="panel-body">
+        <div class="row">
+            <div class="col-md-6">
+            <p>{{panel.description}}</p>
+            </div>
+            <div class="col-md-6">
+            <p>{{panel.created_at}}</p>
+            </div>
+        </div>
+        </div>
+    </div> -->
+</ng-container>
+
+<ng-template #new>
+    <div class="w-full h-full flex flex-col p-3 gap-5 overflow-y-auto">
+        <div class="w-full h-fit flex flex-col">
+            <label class="text-white uppercase font-medium">Panel Name</label>
+            <input type="text" class="w-full h-10 p-2 bg-[#292d31] outline-none text-white rounded-md mt-3" placeholder="Example" [(ngModel)]="panel.name">
+        </div>
+        <div class="w-full h-fit flex flex-row justify-between items-center gap-5">
+            <div class="w-1/2 flex flex-col">
+                <label class="text-white uppercase font-medium">Open Category</label>
+                <select class="w-full h-10 p-2 bg-[#292d31] outline-none text-white rounded-md mt-3" [(ngModel)]="panel.openCategory">
+                    <option *ngFor="let item of categories" [value]="item.id">{{item.name}}</option>
+                </select>
+            </div>
+            <div class="w-1/2 flex flex-col">
+                <label class="text-white uppercase font-medium">Close Category</label>
+                <select class="w-full h-10 p-2 bg-[#292d31] outline-none text-white rounded-md mt-3" [(ngModel)]="panel.closeCategory">
+                    <option *ngFor="let item of categories" [value]="item.id">{{item.name}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="w-full max-h-[38rem] h-fit flex flex-col">
+            <app-editor [JSONEmbed]="embedData" (embedsChange)="handleEmbedsChange($event)"></app-editor>
+        </div> 
+        <div class="w-full h-fit flex flex-row justify-between items-center">
+            <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" (click)="createPanel()">Create Panel</button>
+            <button class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" (click)="cancel()">Cancel</button>
+
+        </div>
+    </div>
+</ng-template>

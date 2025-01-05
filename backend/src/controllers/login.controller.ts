@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import axios from "axios";
-import { getDiscordUserOrCreate } from '../utils/discord';
+import { checkIfGuildIsSetup, getDiscordUserOrCreate } from '../utils/discord';
 
 const login = async (req: any, res: any) => {
     const code = req.query.code;
@@ -41,7 +41,10 @@ const login = async (req: any, res: any) => {
         // const user = await getDiscordUserOrCreate(userDataResponse.data.id)
         req.session.logged = true,
         req.session.accountData = userDataResponse.data
-        req.session.adminGuilds = adminGuilds; // Change this line
+
+        const checkedGroups = await checkIfGuildIsSetup(adminGuilds); 
+
+        req.session.adminGuilds = checkedGroups; // Change this line
 
         // req.session.accountData.accountId = user?.id
         

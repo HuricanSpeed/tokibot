@@ -25,6 +25,7 @@ export class DashboardLayoutComponent implements OnInit {
       this.accountData = response.user;
       this.isLogged = response.logged;
       this.adminGuilds = response.adminGuilds;
+      this.adminGuilds.sort((a: any, b: any) => b.setup - a.setup);
       console.log(response);
     });
   }
