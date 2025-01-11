@@ -8,6 +8,7 @@ import prisma from "./services/prisma.service";
 import authRouter from "./routes/auth.route";
 import loginRouter from "./routes/login.route";
 import router from "./routes/guild.route";
+import ticketRouter from "./routes/ticket.route";
 
 const App: Application = express();
 
@@ -32,6 +33,7 @@ App.set("trust proxy", 1);
 App.use("/api", loginRouter);
 App.use("/api", authRouter);
 App.use("/api/discord", router);
+App.use("/api/ticket", ticketRouter);
 
 discordClient.login(process.env.DISCORD_TOKEN as string);
 

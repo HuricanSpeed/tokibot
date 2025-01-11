@@ -28,6 +28,25 @@ export class HttpService {
   async getGuildCategories(id: string) {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
     const options = { withCredentials: true, headers };
-    return await this.http.post(`/api/discord/getGuildCategories`, {guildId: id} ,options);
+    return await this.http.post(`/api/discord/getGuildCategories`, {guildId: id}, options);
   }
+
+  async newPanel(panel: any) {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    const options = { withCredentials: true, headers };
+    return await this.http.post(`/api/ticket/newPanel`, panel, options);
+  }
+
+  async getPanels(guildId: string) {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    const options = { withCredentials: true, headers };
+    return await this.http.post(`/api/ticket/getPanels`, {guildId: guildId}, options);
+  }
+
+  async getPanel(panelId: string) {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    const options = { withCredentials: true, headers };
+    return await this.http.post(`/api/ticket/getPanel`, {panelId: panelId}, options);
+  }
+
 }

@@ -1,19 +1,49 @@
 <ng-container *ngIf="false; else new">
-    <!-- <div class="panel panel-default">
-        <div class="panel-heading">
-        <h3 class="panel-title">{{panel.name}}</h3>
+<div class="w-full h-full flex flex-col p-3 gap-5 overflow-y-auto">
+        <div class="w-full h-fit flex flex-col">
+            <label class="text-white uppercase font-medium">Panel Name</label>
+            <input type="text" class="w-full h-10 p-2 bg-[#292d31] outline-none text-white rounded-md mt-3" placeholder="Example" [value]="panel.name" [(ngModel)]="panel.name">
         </div>
-        <div class="panel-body">
-        <div class="row">
-            <div class="col-md-6">
-            <p>{{panel.description}}</p>
+        <div class="w-full h-fit flex flex-row justify-between items-center gap-5">
+            <div class="w-1/2 flex flex-col">
+                <label class="text-white uppercase font-medium">Open Category</label>
+                <select class="w-full h-10 p-2 bg-[#292d31] outline-none text-white rounded-md mt-3" [value]="panel.openCategory" [(ngModel)]="panel.openCategory">
+                    <option *ngFor="let item of categories" [value]="item.id">{{item.name}}</option>
+                </select>
             </div>
-            <div class="col-md-6">
-            <p>{{panel.created_at}}</p>
+            <div class="w-1/2 flex flex-col">
+                <label class="text-white uppercase font-medium">Close Category</label>
+                <select class="w-full h-10 p-2 bg-[#292d31] outline-none text-white rounded-md mt-3" [value]="panel.closeCategory" [(ngModel)]="panel.closeCategory">
+                    <option *ngFor="let item of categories" [value]="item.id">{{item.name}}</option>
+                </select>
             </div>
         </div>
+        <!-- <div class="w-full h-fit flex flex-col">
+          <label class="text-white uppercase font-medium">Channel Name</label>
+          <input type="text" class="w-full h-10 p-2 bg-[#292d31] outline-none text-white rounded-md mt-3" [value]="" [(ngModel)]="panel.channelNaming">
+        </div> -->
+        <!-- <div class="w-full h-fit flex flex-row justify-between items-center gap-5">
+          <div class="w-full flex flex-col">
+              <label class="text-white uppercase font-medium">Button Label</label>
+              <input type="text" class="w-full h-10 p-2 bg-[#292d31] outline-none text-white rounded-md mt-3" placeholder="Example" value="Make Ticket" [(ngModel)]="panel.buttonLabel">
+          </div>
+        </div> -->
+        <div class="w-full max-h-[38rem] h-fit flex flex-col">
+          <label class="text-white uppercase font-medium">Send to channel</label>
+          <select class="w-full h-10 p-2 bg-[#292d31] outline-none text-white rounded-md mt-3" [(ngModel)]="panel.sendChannel">
+              <option *ngFor="let item of channels" [value]="item.id">#{{item.name}}</option>
+          </select>
+          <!-- <div class="overflow-y-auto text-white flex flex-col gap-5 p-3 w-full h-full">
+            <p>Please use <a href="https://discohook.org" target="_blank" class="hover:text-blue-500 underline">discohook.org</a> to stylize your message or keep the default one</p>
+
+            <textarea placeholder="Paste here an JSON from json editor from discohook.org" class="bg-[#1b1e20] h-48" [(ngModel)]="embedData"  ></textarea>
+          </div> -->
         </div>
-    </div> -->
+        <div class="w-full h-fit flex flex-row justify-between items-center">
+            <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" (click)="createPanel()" [disabled]="disableCreate">Create Panel</button>
+            <button class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" (click)="cancel()" [routerLink]="['/dashboard/', guildId, 'tickets']" routerLinkActive="router-link-active">Cancel</button>
+        </div>
+    </div>
 </ng-container>
 
 <ng-template #new>
@@ -36,13 +66,30 @@
                 </select>
             </div>
         </div>
+        <div class="w-full h-fit flex flex-col">
+          <label class="text-white uppercase font-medium">Channel Name</label>
+          <input type="text" class="w-full h-10 p-2 bg-[#292d31] outline-none text-white rounded-md mt-3" placeholder="${name}-${count}" value="${name}-${count}" [(ngModel)]="panel.channelNaming">
+        </div>
+        <div class="w-full h-fit flex flex-row justify-between items-center gap-5">
+          <div class="w-full flex flex-col">
+              <label class="text-white uppercase font-medium">Button Label</label>
+              <input type="text" class="w-full h-10 p-2 bg-[#292d31] outline-none text-white rounded-md mt-3" placeholder="Example" value="Make Ticket" [(ngModel)]="panel.buttonLabel">
+          </div>
+      </div>
         <div class="w-full max-h-[38rem] h-fit flex flex-col">
-            <app-editor [JSONEmbed]="embedData" (embedsChange)="handleEmbedsChange($event)"></app-editor>
-        </div> 
-        <div class="w-full h-fit flex flex-row justify-between items-center">
-            <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" (click)="createPanel()">Create Panel</button>
-            <button class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" (click)="cancel()">Cancel</button>
+          <label class="text-white uppercase font-medium">Send to channel</label>
+          <select class="w-full h-10 p-2 bg-[#292d31] outline-none text-white rounded-md mt-3" [(ngModel)]="panel.sendChannel">
+              <option *ngFor="let item of channels" [value]="item.id">#{{item.name}}</option>
+          </select>
+          <!-- <div class="overflow-y-auto text-white flex flex-col gap-5 p-3 w-full h-full">
+            <p>Please use <a href="https://discohook.org" target="_blank" class="hover:text-blue-500 underline">discohook.org</a> to stylize your message or keep the default one</p>
 
+            <textarea placeholder="Paste here an JSON from json editor from discohook.org" class="bg-[#1b1e20] h-48" [(ngModel)]="embedData"  ></textarea>
+          </div> -->
+        </div>
+        <div class="w-full h-fit flex flex-row justify-between items-center">
+            <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" (click)="createPanel()" [disabled]="disableCreate">Create Panel</button>
+            <button class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" (click)="cancel()" [routerLink]="['/dashboard/', guildId, 'tickets']" routerLinkActive="router-link-active">Cancel</button>
         </div>
     </div>
 </ng-template>

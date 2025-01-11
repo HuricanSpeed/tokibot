@@ -43,15 +43,21 @@ const getGuildCategories = async(req: any, res: any) => {
             return res.status(404).json({ success: false, message: 'Guild not found' });
         }
         const categories = guild.channels.cache.filter((channel: any) => channel.type == 4).map((category: any) => {
-            console.log(category);
             return {
                 id: category.id,
                 name: category.name,
                 position: category.position,
             }
         })
+        const channels = guild.channels.cache.filter((channel: any) => channel.type == 0).map((channel: any) => {
+            return {
+                id: channel.id,
+                name: channel.name,
+                position: channel.position,
+            }
+        })
 
-        res.status(200).json({ success: true, message: 'Successfully obtained guild categories', data: categories });
+        res.status(200).json({ success: true, message: 'Successfully obtained guild categories', data: { categories: categories, channels: channels } });
     } catch (error) {
         console.error(error);
         res.status(500).json({ success: true, message: 'Internal server error' });

@@ -201,6 +201,28 @@ const handleButtonClick = async (interaction: ButtonInteraction) => {
         modal.addComponents(row)
 
         await interaction.showModal(modal)
+    } else if(interactionType == "deleteticket") {
+        const ticketId = customId.split("-deleteticket")[0];
+        const ticket = await prisma.ticket.findUnique({
+            where: {
+                id: ticketId
+            },
+            include: {
+                panel: true
+            }
+        });
+
+        if(!ticket) return;
+
+        const channel = await interaction.channel as TextChannel;
+        await channel.delete();
+        await prisma.ticket.delete({
+            where: {
+                id: ticketId
+            }
+        });
+
+        await interaction.deferUpdate();
     } else {
         await interaction.reply({ content: "This button is not configured correctly", ephemeral: true });   
     }
