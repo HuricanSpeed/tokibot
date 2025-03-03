@@ -34,6 +34,7 @@ model Settings {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   modules     String?
+  challenge   Challenges[]
   guild       Guild    @relation(fields: [guildId], references: [guildId])
   ticketPanel TicketPanel[]
 }
@@ -95,7 +96,27 @@ model Mutes {
   updatedAt DateTime @updatedAt
 }
 
+model Challenges {
+  id        Int   @id @default(autoincrement())
+  guildId   String
+  challenge ChallengesType
+  channelId String
+  playEach  Int
+  nextTime  DateTime
+  settingsId Int
+  settings  Settings @relation(fields: [settingsId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 enum TicketStatus {
   OPEN
   CLOSED
+}
+
+enum ChallengesType {
+  REACTIONS
+  WORDS
+  MATHS
+  SCRAMBLE
 }

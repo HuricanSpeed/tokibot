@@ -9,6 +9,7 @@ import { GuildOverviewComponent } from './components/sites/guild-overview/guild-
 import { GuildTicketsComponent } from './components/sites/guild-tickets/guild-tickets.component';
 import { GuildBansComponent } from './components/sites/guild-bans/guild-bans.component';
 import { PanelIdComponent } from './components/sites/panel/panel-id/panel-id.component';
+import { GuildFunnyComponent } from './components/sites/guild-funny/guild-funny.component';
 
 
 export const routes: Routes = [
@@ -31,6 +32,7 @@ export const routes: Routes = [
             {path: 'panel/:panelId', component: PanelIdComponent},
           ]},
           {path: 'bans', component: GuildBansComponent},
+          {path: 'funny', component: GuildFunnyComponent},
           {path: '', redirectTo: 'overview', pathMatch: 'full'}
         ]
       },
