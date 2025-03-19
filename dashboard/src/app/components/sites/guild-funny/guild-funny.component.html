@@ -4,11 +4,11 @@
     <div class="w-full flex flex-row gap-3 justify-center items-center">
       <label class="text-white uppercase font-medium">ENABLE</label>
       <div class="checkbox-wrapper-2">
-        <input type="checkbox" class="sc-gJwTLC ikxBAC">
+        <input type="checkbox" class="sc-gJwTLC ikxBAC" [(ngModel)]="FastReactionGameEnable">
       </div>
     </div>
     <div class="w-full flex flex-col">
-      <select class="w-full h-10 p-2 bg-[#292d31] outline-none text-white rounded-md mt-3" [(ngModel)]="selectedChannel">
+      <select class="w-full h-10 p-2 bg-[#292d31] outline-none text-white rounded-md mt-3" [(ngModel)]="selectedChannels.FastReaction.channel">
         <option *ngFor="let item of channels" [value]="item.id">#{{item.name}}</option>
     </select>
     </div>
@@ -18,13 +18,12 @@
     <div class="w-full flex flex-row gap-3 justify-center items-center">
       <label class="text-white uppercase font-medium">ENABLE</label>
       <div class="checkbox-wrapper-2">
-        <input type="checkbox" class="sc-gJwTLC ikxBAC">
+        <input type="checkbox" class="sc-gJwTLC ikxBAC" [(ngModel)]="MathsGameEnable">
       </div>
     </div>
     <div class="w-full flex flex-col">
-      <label class="text-white uppercase font-medium">Open Category</label>
-      <select class="w-full h-10 p-2 bg-[#292d31] outline-none text-white rounded-md mt-3">
-          <option >{{" asdas"}}</option>
+      <select class="w-full h-10 p-2 bg-[#292d31] outline-none text-white rounded-md mt-3" [(ngModel)]="selectedChannels.Maths.channel">
+          <option *ngFor="let item of channels" [value]="item.id">{{item.name}}</option>
       </select>
     </div>
   </div>
@@ -33,13 +32,12 @@
     <div class="w-full flex flex-row gap-3 justify-center items-center">
       <label class="text-white uppercase font-medium">ENABLE</label>
       <div class="checkbox-wrapper-2">
-        <input type="checkbox" class="sc-gJwTLC ikxBAC">
+        <input type="checkbox" class="sc-gJwTLC ikxBAC" [(ngModel)]="WordsGameEnable">
       </div>
     </div>
     <div class="w-full flex flex-col">
-      <label class="text-white uppercase font-medium">Open Category</label>
-      <select class="w-full h-10 p-2 bg-[#292d31] outline-none text-white rounded-md mt-3">
-          <option >{{" asdas"}}</option>
+      <select class="w-full h-10 p-2 bg-[#292d31] outline-none text-white rounded-md mt-3" [(ngModel)]="selectedChannels.Words.channel">
+          <option *ngFor="let item of channels" [value]="item.id">{{item.name}}</option>
       </select>
     </div>
   </div>
@@ -48,14 +46,19 @@
     <div class="w-full flex flex-row gap-3 justify-center items-center">
       <label class="text-white uppercase font-medium">ENABLE</label>
       <div class="checkbox-wrapper-2">
-        <input type="checkbox" class="sc-gJwTLC ikxBAC">
+        <input type="checkbox" class="sc-gJwTLC ikxBAC" [(ngModel)]="ScrambleGameEnable">
       </div>
     </div>
     <div class="w-full flex flex-col">
-      <label class="text-white uppercase font-medium">Open Category</label>
-      <select class="w-full h-10 p-2 bg-[#292d31] outline-none text-white rounded-md mt-3">
-          <option >{{" asdas"}}</option>
+      <select class="w-full h-10 p-2 bg-[#292d31] outline-none text-white rounded-md mt-3" [(ngModel)]="selectedChannels.Scramble.channel">
+          <option *ngFor="let item of channels" [value]="item.id">{{item.name}}</option>
       </select>
     </div>
   </div>
+</div>
+
+<div class="absolute bottom-0 w-1/2 flex flex-row justify-center items-center p-3 rounded-md drop-shadow gap-4 bg-[#42484e]">
+  <p class="text-white font-bold">You have unsaved changes</p>
+  <button class="bg-blue-500 text-white p-2 rounded-md hover:scale-105 transition-all">Save</button>
+  <button class="bg-red-500 text-white p-2 rounded-md hover:scale-105 transition-all">Cancel</button>
 </div>

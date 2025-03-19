@@ -69,11 +69,28 @@ export class PanelIdComponent {
           await this.http.getPanel(panelId).then(async (observable: Observable<any>) => {
             await observable.subscribe((response: any) => {
               console.log('Panel:', response);
-              this.panel.closeCategory = response.panel.closedCategoryId;
-              this.panel.openCategory = response.panel.cate;
-              this.panel.sendChannel = response.panel.channelId;
-              this.panel.name = response.panel.name;
+              this.panel.closeCategory = response.data.closedCategoryId;
+              this.panel.openCategory = response.data.categoryId;
+              this.panel.sendChannel = response.data.channelId;
+              this.panel.name = response.data.name;
 
+            });
+          });
+          await this.http.getGuildCategories(id!).then(async (observable: Observable<any>) => {
+            await observable.subscribe((response: any) => {
+              this.categories = response?.data.categories;
+              this.channels = response?.data.channels;
+              console.log('Categories:', this.categories);
+              console.log('Channels:', this.channels);
+
+              if (this.categories.length > 0) {
+                this.panel.openCategory = this.categories[0].id;
+                this.panel.closeCategory = this.categories[0].id;
+              }
+
+              if (this.channels.length > 0) {
+                this.panel.sendChannel = this.channels[0].id;
+              }
             });
           });
         };
@@ -100,5 +117,18 @@ export class PanelIdComponent {
     })
   }
   cancel() {}
+
+  async updatePanel() {
+    const panel2 = {id: this.idOfPanel, ...this.panel}
+    await this.http.updatePanel(panel2).then(async (observable: Observable<any>) => {
+      await observable.subscribe((response: any) => {
+        if(response?.error) {
+          console.error(response.error);
+          return;
+        }
+        this.router.navigate([`/dashboard/${this.guildId}/tickets`]);
+      })
+    })
+  }
 
 }

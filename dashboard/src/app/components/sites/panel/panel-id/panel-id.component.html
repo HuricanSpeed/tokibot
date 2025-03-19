@@ -56,13 +56,27 @@
             <div class="w-1/2 flex flex-col">
                 <label class="text-white uppercase font-medium">Open Category</label>
                 <select class="w-full h-10 p-2 bg-[#292d31] outline-none text-white rounded-md mt-3" [(ngModel)]="panel.openCategory">
-                    <option *ngFor="let item of categories" [value]="item.id">{{item.name}}</option>
+                    <ng-container *ngFor="let item of categories">
+                      <ng-container *ngIf="item.id === panel.openCategory; else notSelected">
+                        <option [value]="item.id" selected>{{item.name}}</option>
+                      </ng-container>
+                      <ng-template #notSelected>
+                        <option [value]="item.id">{{item.name}}</option>
+                      </ng-template>
+                    </ng-container>
                 </select>
             </div>
             <div class="w-1/2 flex flex-col">
                 <label class="text-white uppercase font-medium">Close Category</label>
                 <select class="w-full h-10 p-2 bg-[#292d31] outline-none text-white rounded-md mt-3" [(ngModel)]="panel.closeCategory">
-                    <option *ngFor="let item of categories" [value]="item.id">{{item.name}}</option>
+                  <ng-container *ngFor="let item of categories">
+                    <ng-container *ngIf="item.id === panel.closeCategory; else notSelected">
+                      <option [value]="item.id" selected>{{item.name}}</option>
+                    </ng-container>
+                    <ng-template #notSelected>
+                      <option [value]="item.id">{{item.name}}</option>
+                    </ng-template>
+                  </ng-container>
                 </select>
             </div>
         </div>
@@ -88,7 +102,7 @@
           </div> -->
         </div>
         <div class="w-full h-fit flex flex-row justify-between items-center">
-            <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" (click)="createPanel()" [disabled]="disableCreate">Create Panel</button>
+            <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" (click)="updatePanel()" [disabled]="disableCreate">Update Panel</button>
             <button class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" (click)="cancel()" [routerLink]="['/dashboard/', guildId, 'tickets']" routerLinkActive="router-link-active">Cancel</button>
         </div>
     </div>

@@ -3,18 +3,41 @@ import { FormsModule } from '@angular/forms';
 import { HttpService } from '../../../services/http.service';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-guild-funny',
   standalone: true,
-  imports: [FormsModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './guild-funny.component.html',
   styleUrl: './guild-funny.component.scss'
 })
+
+
 export class GuildFunnyComponent {
 
   categories: any;
   channels: any;
+
+  FastReactionGameEnable: boolean = false;
+  MathsGameEnable: boolean = false;
+  WordsGameEnable: boolean = false;
+  ScrambleGameEnable: boolean = false;
+
+  selectedChannels: any = {
+    FastReaction: {
+      channel: null,
+    },
+    Maths: {
+      channel: null,
+    },
+    Words: {
+      channel: null,
+    },
+    Scramble: {
+      channel: null,
+    }
+  };
 
   constructor(private http: HttpService, private route: ActivatedRoute) { }
 
@@ -32,5 +55,7 @@ export class GuildFunnyComponent {
       });
     })
   }
+
+  // Funny things to do
 
 }

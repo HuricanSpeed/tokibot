@@ -105,6 +105,7 @@ model Challenges {
   nextTime  DateTime
   settingsId Int
   settings  Settings @relation(fields: [settingsId], references: [id])
+  enabled   Boolean @default(true)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

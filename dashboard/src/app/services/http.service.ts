@@ -49,4 +49,15 @@ export class HttpService {
     return await this.http.post(`/api/ticket/getPanel`, {panelId: panelId}, options);
   }
 
+  async updatePanel(panel: any) {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    const options = { withCredentials: true, headers };
+    return await this.http.post(`/api/ticket/updatePanel`, {panel: panel}, options);
+  }
+
+  async deletePanel(panelId: string) {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    const options = { withCredentials: true, headers };
+    return await this.http.post(`/api/ticket/deletePanel`, {panelId: panelId}, options);
+  }
 }

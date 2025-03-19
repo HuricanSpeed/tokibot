@@ -130,8 +130,47 @@ const getPanel = async (req: any, res: any) => {
     }
 }
 
+const updatePanel = async (req: any, res: any) => {
+    try {
+        await prisma.ticketPanel.update({
+            where: {
+                id: req.body.panel.id
+            },
+            data: {
+                name: req.body.panel.name,
+                channelId: req.body.panel.sendChannel,
+                categoryId: req.body.panel.openCategory,
+                closedCategoryId: req.body.panel.closeCategory
+            }
+        });
+
+        res.status(200).json({ success: true, message: 'Panel updated' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: 'Internal server error' });
+    }
+}
+
+const deletePanel = async (req: any, res: any) => {
+    try {
+        await prisma.ticketPanel.delete({
+            where: {
+                id: req.body.panelId
+            }
+        });
+
+        res.status(200).json({ success: true, message: 'Panel deleted' });
+    }
+    catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: 'Internal server error' });
+    }
+}
+
 export {
     createPanel,
     getPanels,
-    getPanel
+    getPanel,
+    updatePanel,
+    deletePanel
 }

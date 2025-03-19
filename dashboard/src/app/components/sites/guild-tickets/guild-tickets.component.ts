@@ -41,4 +41,13 @@ export class GuildTicketsComponent implements OnInit {
     // new panel
 
   }
+
+  async deletePanel(panelId: string) {
+    await this.http.deletePanel(panelId).then(async (observable: any) => {
+      await observable.subscribe((response: any) => {
+        console.log('Delete Panel:', response);
+        this.getPanels();
+      });
+    });
+  }
 }

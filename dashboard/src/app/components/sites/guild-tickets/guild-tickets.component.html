@@ -20,7 +20,7 @@
             <td>{{panel._count.Ticket}}</td>
             <td class="flex flex-row gap-5 items-end justify-end">
               <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" [routerLink]="['panel/', panel.id]" >Edit</button>
-              <button class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Delete</button>
+              <button class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" (click)="deletePanel(panel.id)">Delete</button>
             </td>
           </tr>
         </tbody>
